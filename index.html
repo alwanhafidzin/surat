@@ -31,6 +31,7 @@ body{
   color:white;
   opacity:.6;
   animation:float 8s linear infinite;
+  pointer-events:none;
 }
 
 @keyframes float{
@@ -54,6 +55,7 @@ body{
   height:260px;
   cursor:pointer;
   transition:.4s;
+  z-index:2;
 }
 
 .container:hover{
@@ -167,6 +169,7 @@ body{
   font-size:15px;
   opacity:.9;
   animation:pulse 2s infinite;
+  z-index:2;
 }
 
 @keyframes pulse{
@@ -185,12 +188,67 @@ body{
 
 }
 
-/* MOBILE */
+/* MOBILE RESPONSIVE */
 @media(max-width:480px){
 
+  body{
+    padding:15px;
+    overflow:hidden;
+    align-items:center;
+  }
+
   .container{
-    width:320px;
-    height:240px;
+    width:100%;
+    max-width:330px;
+    height:220px;
+  }
+
+  .front{
+    border-radius:16px;
+  }
+
+  .front h2{
+    font-size:20px;
+    bottom:20px;
+    letter-spacing:1px;
+  }
+
+  .container.open .letter{
+
+    width:100%;
+
+    height:78vh;
+
+    top:-30vh;
+
+    padding:22px 18px;
+
+    border-radius:18px;
+
+    overflow-y:auto;
+
+  }
+
+  .text{
+    font-size:14px;
+    line-height:1.9;
+  }
+
+  .signature{
+    font-size:15px;
+    margin-top:28px;
+  }
+
+  .music-text{
+    bottom:22px;
+    font-size:13px;
+    width:100%;
+    text-align:center;
+    left:0;
+  }
+
+  .letter::-webkit-scrollbar{
+    width:4px;
   }
 
 }
@@ -339,7 +397,7 @@ aku cuma pengen kamu tetap jadi tempat pulangku.
 let index = 0;
 let started = false;
 
-/* TEMPO LEBIH DALAM & SINEMATIK */
+/* TYPING EFFECT */
 function typeText(){
 
   const typingText = document.getElementById("typingText");
@@ -348,14 +406,15 @@ function typeText(){
 
     typingText.innerHTML += message.charAt(index);
 
+    /* AUTO SCROLL */
     letter.scrollTop = letter.scrollHeight;
 
     let speed = 55;
 
-    /* PAUSE EMOSIONAL */
     const currentChar = message.charAt(index);
 
-    if(currentChar === "." || currentChar === "," ){
+    /* PAUSE EMOSIONAL */
+    if(currentChar === "." || currentChar === ","){
       speed = 220;
     }
 
@@ -382,8 +441,10 @@ container.addEventListener("click",()=>{
 
   if(!started){
 
+    /* PLAY MUSIC */
     music.play();
 
+    /* START TYPING */
     setTimeout(()=>{
       typeText();
     },1200);
